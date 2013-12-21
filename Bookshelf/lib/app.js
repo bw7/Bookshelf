@@ -8,6 +8,7 @@ var http = require('http');
 var path = require('path');
 
 var app = express();
+app.config = require(path.join(_dirname, '../config'));
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -28,7 +29,7 @@ if ('development' == app.get('env')) {
 
 // database connection
 var MongoClient = require('mongodb').MongoClient;
-MongoClient.connect('mongodb://localhost:27017/bookdb', function (error, db) {
+MongoClient.connect('app.config.database.uri, function (error, db) {
   if(error) {
     console.log("Error connecting to database: " + error.toString().replace("Error: ",""));
   } else {
