@@ -26,10 +26,22 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-require('./routes')(app);
+// database connection
+var MongoClient = require('mongodb').MongoClient;
+MongoClient.connect('mongodb://localhost:27017/bookdb', function (error, db) {
+  if(error) {
+    console.log("Error connecting to database: " + error.toString().replace("Error: ",""));
+  } else {
+    console.log("Connected to DB " + 'mongodb://localhost:27017/bookdb');
+    
+    app.db = db;
+    require('./routes')(app);
 
+    http.createServer(app).listen(app.get('port'), function(){
+      console.log('Express server listening on port ' + app.get('port'));
+    });
 
-
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+  }
 });
+
+
