@@ -17,7 +17,9 @@ html
             ul.right
               li.has-button
                 a.small.button(href='/new') Add book
-                
+        div#alert
+        - if (typeof(error) !== "undefined")
+          div.alert-box.alert #{error.message}
     //- main content
     block content
     
