@@ -35,6 +35,9 @@ MongoClient.connect('mongodb://localhost:27017/bookdb', function (error, db) {
     console.log("Connected to DB " + 'mongodb://localhost:27017/bookdb');
     
     app.db = db;
+    app.models = {
+    	BookModel : require('./models/book')(app)
+    };
     require('./routes')(app);
 
     http.createServer(app).listen(app.get('port'), function(){
