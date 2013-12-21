@@ -39,6 +39,10 @@ MongoClient.connect('app.config.database.uri, function (error, db) {
     app.models = {
     	BookModel : require('./models/book')(app)
     };
+    app.controllers = {
+    	BookController : require('./controllers/book')(app)
+    };
+    
     require('./routes')(app);
 
     http.createServer(app).listen(app.get('port'), function(){
