@@ -19,10 +19,18 @@ html
             li.name
               h1
                 a(href="/") Node Bookshelf
+           li.toggle-topbar.menu-icon
+              a(href="#")
+                span menu
           section.top-bar-section
-            ul.right
-              li.has-button
-                a.small.button(href='/new') Add book
+            ul.title-area.right
+              li.has-button 
+                - if(page === "new" || page === "edit")
+                  a.small.button.alert(href="/") Cancel
+                - else if(page === "book")
+                  a.small.button(href="/") Go to shelf
+                - else
+                  a.small.button(href="/books/new") Add book
         div#alert
         - if (typeof(error) !== "undefined")
           div.alert-box.alert #{error.message}
