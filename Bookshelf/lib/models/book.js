@@ -20,6 +20,27 @@ module.exports = function(app) {
     }  
   };
 
+
+  Model.create = function(bookToAdd, callback) {
+    try {
+      collection.insert(bookToAdd, {safe: true}, function(error, books) {
+        if(error) {
+          console.log(Model.name + ' #create error when inserting '+ bookToAdd.toString() + ' - '+ error.toString());
+          callback(app.config.errors.database_error);
+        } else if(!books[0]) {
+          console.log(Model.name + ' #create no books were created for '+ bookToAdd.toString());
+          callback(app.config.errors.database_error);
+        } else {
+          callback(null);
+        }
+      });
+    } catch(exception) {
+      console.log(Model.name + ' #create exception when inserting '+ bookToAdd + ' - '+ exception);
+      callback(app.config.errors.database_error);
+    }  
+  };
+
+
   Model.read = function(isbn, callback) {
     try {
       collection.findOne({isbn: isbn}, function(error, book) {
