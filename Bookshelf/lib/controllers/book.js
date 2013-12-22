@@ -23,11 +23,31 @@ module.exports = function(app) {
     });
   };
   
-
-
-
-
+  Controller.new = function(req, res) {
+    res.render('books/new', {page: 'new'});
+  }
   
+
+  Controller.create = function(req, res) {
+    var book = {
+      title: req.body.title,
+      author: req.body.author,
+      description: req.body.description,
+      isbn: req.body.isbn
+    };
+    BookModel.create(book, function(error) {
+      if(error) {
+        res.send(error.code, error);
+      } else {
+        res.send(201);
+      }
+    });
+  };
+
+
+
+
+
   Controller.show = function(req, res) {
     var isbn = req.params.id;
     BookModel.read(isbn, function(error, book) {
