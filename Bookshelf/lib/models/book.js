@@ -20,7 +20,6 @@ module.exports = function(app) {
     }  
   };
 
-
   Model.create = function(bookToAdd, callback) {
     try {
       collection.insert(bookToAdd, {safe: true}, function(error, books) {
@@ -90,7 +89,6 @@ module.exports = function(app) {
       callback(app.config.errors.database_error);
     }
   };
-  
   
   return Model;
 }
