@@ -40,7 +40,6 @@ module.exports = function(app) {
     }  
   };
 
-
   Model.read = function(isbn, callback) {
     try {
       collection.findOne({isbn: isbn}, function(error, book) {
@@ -59,7 +58,23 @@ module.exports = function(app) {
       callback(app.config.errors.database_error);
     }  
   };
-  
+
+  Model.update = function(isbn, book, callback) {
+    try {
+      collection.update({isbn: isbn}, book, {safe: true, multi: false}, function(error) {
+        if(error) {
+          console.log(Model.name + ' #update error when updating book '+ isbn + ' - '+ error.toString());
+          callback(app.config.errors.database_error);
+        } else {
+          callback(null);
+        }
+      });
+    } catch(exception) {
+      console.log(Model.name + ' #update exception when performing update ' + exception);
+      callback(app.config.errors.database_error);
+    }
+  };
+
   Model.remove = function(isbn, callback) {
     try {
       collection.remove({isbn: isbn}, function(error) {
