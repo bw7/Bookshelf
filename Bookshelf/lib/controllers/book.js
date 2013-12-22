@@ -23,5 +23,34 @@ module.exports = function(app) {
     });
   };
   
+
+
+
+
+  
+  Controller.show = function(req, res) {
+    var isbn = req.params.id;
+    BookModel.read(isbn, function(error, book) {
+      res.format({
+        html: function(){
+          if(error) {
+            res.render('books/bookshelf', {error: error});
+          } else {
+            res.render('books/book', {book: book, page:'book'});
+          }
+        }, 
+        json: function(){
+          if(error) {
+            res.send(error.code, error);
+          } else {
+            res.send(200, book);
+          }
+        }
+      });
+    });
+  };
+
+
+
   return Controller;
 }
