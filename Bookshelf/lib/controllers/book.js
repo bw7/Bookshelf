@@ -26,7 +26,17 @@ module.exports = function(app) {
   Controller.new = function(req, res) {
     res.render('books/new', {page: 'new'});
   }
-  
+
+  Controller.edit = function(req, res) {
+    var isbn = req.params.id;
+    BookModel.read(isbn, function(error, book) {
+      if(error) {
+        res.render('books/bookshelf', {error: error});
+      } else {
+        res.render('books/edit', {page: 'edit', book: book});
+      }
+    });
+  }
 
   Controller.create = function(req, res) {
     var book = {
@@ -43,10 +53,6 @@ module.exports = function(app) {
       }
     });
   };
-
-
-
-
 
   Controller.show = function(req, res) {
     var isbn = req.params.id;
@@ -69,6 +75,16 @@ module.exports = function(app) {
       });
     });
   };
+
+  Controller.update = function(req, res) {
+    var isbn = req.params.id;
+    var book = {
+      title: req.body.title,
+      author: req.body.author,
+      description: req.body.description,
+      isbn: isbn
+    };
+    
 
   Controller.remove = function(req, res) {
     var isbn = req.params.id;
