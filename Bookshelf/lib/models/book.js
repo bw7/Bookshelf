@@ -60,6 +60,22 @@ module.exports = function(app) {
     }  
   };
   
+  Model.remove = function(isbn, callback) {
+    try {
+      collection.remove({isbn: isbn}, function(error) {
+        if(error) {
+          console.log(Model.name + ' #remove error when removing '+ isbn + ' - '+ error.toString());
+          callback(app.config.errors.database_error);
+        } else {
+          callback(null);
+        }
+      });
+    } catch(exception) {
+      console.log(Model.name + ' #remove exception when removing '+ isbn + ' - '+ exception);
+      callback(app.config.errors.database_error);
+    }
+  };
+  
   
   return Model;
 }
