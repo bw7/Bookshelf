@@ -6,4 +6,6 @@ module.exports = function(app) {
   });
 
   app.get('/books', BookController.list);
+  app.get('/books/:id', BookController.show);
+
 }
