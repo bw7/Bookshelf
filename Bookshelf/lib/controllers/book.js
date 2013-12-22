@@ -85,6 +85,14 @@ module.exports = function(app) {
       isbn: isbn
     };
     
+    BookModel.update(isbn, book, function(error) {
+      if(error) {
+        res.send(error.code, error);
+      } else {
+        res.send(204);
+      }
+    });
+  };
 
   Controller.remove = function(req, res) {
     var isbn = req.params.id;
