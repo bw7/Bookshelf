@@ -12,5 +12,5 @@ module.exports = function(app) {
   app.post('/books', BookController.create);
   app.get('/books/:id', BookController.show);
   app.put('/books/:id', BookController.update);
-  app.delete('books/:id', BookController.remove);
+  app.delete('/books/:id', BookController.remove);
 }
