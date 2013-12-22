@@ -5,6 +5,12 @@ html
     link(rel='stylesheet', href='/stylesheets/foundation.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+    //- checking to see if page undefined
+    //-  prevents app from crashing
+    //- if it"s not passed in as variable
+    - if(typeof(page) === "undefined")
+      - var page = "";
+  
     //- navigation
     .row
       .large-12.columns
