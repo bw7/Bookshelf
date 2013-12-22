@@ -13,3 +13,5 @@ block content
             em by #{book.author}
         p #{book.description}
       .row
+        .large-3.text-right.columns
+          button.button.alert.remove(data-isbn='#{book.isbn}') Remove
