@@ -70,6 +70,18 @@ module.exports = function(app) {
     });
   };
 
+  Controller.remove = function(req, res) {
+    var isbn = req.params.id;
+    BookModel.remove(isbn, function(error) {
+      if(error) {
+        res.send(error.code, error);
+      } else {
+        res.send(204);
+      }
+    });
+  };
+  
+
 
 
   return Controller;
