@@ -10,4 +10,5 @@ module.exports = function(app) {
   app.get('/books', BookController.list);
   app.post('/books', BookController.create);
   app.get('/books/:id', BookController.show);
+  app.delete('books/:id', BookController.remove);
 }
